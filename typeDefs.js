@@ -11,10 +11,9 @@ const typeDefs = gql`
     password: String
     username: String
     age: Int
-    walkingAverage: String
     # not sure with this
     activity: [Body_State]
-    sleep: [Sleep_Log]
+    sleep_log: [Sleep_Log]
   }
   type Sleep_Log {
     id: ID
@@ -36,6 +35,22 @@ const typeDefs = gql`
     steps: String
     intensity: Int
     datetime: String
+  }
+  #MUTATION
+
+  type Mutation {
+    createUser(input: CreateUserRequest!): CreateUserResponse
+  }
+  input CreateUserRequest {
+    id: ID
+    firstname: String
+    lastname: String
+    password: String
+    username: String
+    age: Int
+  }
+  type CreateUserResponse {
+    user: Users
   }
 `;
 
