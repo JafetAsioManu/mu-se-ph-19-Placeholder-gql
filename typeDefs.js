@@ -2,14 +2,14 @@ const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Query {
-    users(id: ID!): Users
+    users: [Users]
+    sleepLogs(userId: ID!): [Sleep_Log]
+    bodyStates(userId: ID!): [Body_State]
   }
   type Users {
     id: ID
-    firstname: String
-    lastname: String
-    password: String
-    username: String
+    firstName: String
+    lastName: String
     age: Int
     # not sure with this
     body_state: [Body_State]
