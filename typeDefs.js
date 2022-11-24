@@ -13,28 +13,28 @@ const typeDefs = gql`
     age: Int
     walkingAverage: String
     # not sure with this
-    activity: [Activity]
-    sleep: [Sleep]
+    activity: [Body_State]
+    sleep: [Sleep_Log]
   }
-  type Sleep {
+  type Sleep_Log {
     id: ID
     userId: ID # check if needed?
+    dateOfSleep: String
     sleepStart: String
     sleepEnded: String
-    oxygenSaturation: String
-    avgHeartRate: String
-    maxHeartRate: String
-    sleepHours: String
-    remSleep: String
+    aveSp02: Int
+    aveHeartRate: Int
+    maxHeartRate: Int
+    sleepDuration: Int
+    remSleepDuration: Int
     sleepLevel: Int
-    datetime: String
+    timeInBed: String
   }
-  type Activity {
+  type Body_State {
     id: ID
     userId: ID # check if needed?
     steps: String
-    intensity: String
-    oxygenSaturation: String
+    intensity: Int
     datetime: String
   }
 `;
