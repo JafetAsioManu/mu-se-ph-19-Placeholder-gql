@@ -10,26 +10,39 @@ const Query = {
     return data;
   },
 };
-const Sleep_Log = {
-  id: async (parents, args, context, info) => {},
-  userId: async (parents, args, context, info) => {},
-  sleepStart: async (parents, args, context, info) => {},
-  sleepEnded: async (parents, args, context, info) => {},
-  oxygenSaturation: async (parents, args, context, info) => {},
-  avgHeartRate: async (parents, args, context, info) => {},
-  maxHeartRate: async (parents, args, context, info) => {},
-  sleepHours: async (parents, args, context, info) => {},
-  remSleep: async (parents, args, context, info) => {},
-  sleepLevel: async (parents, args, context, info) => {},
-  datetime: async (parents, args, context, info) => {},
-};
-const Activity = {
-  id: async (parents, args, context, info) => {},
-  userId: async (parents, args, context, info) => {},
-  steps: async (parents, args, context, info) => {},
-  intensity: async (parents, args, context, info) => {},
-  oxygenSaturation: async (parents, args, context, info) => {},
-  datetime: async (parents, args, context, info) => {},
+const Users = {
+  sleep_log: async (parents, args, context, info) => {
+    const { id: userId } = parents;
+    const res = users.sleep_log.find((_id) => _id.userId === userId);
+
+    const usrID = res.map((x) => {
+      return { user_id: x.userId };
+    });
+
+    const uniqueIds = [...new Set(usrID.map((id) => id.user_id))];
+
+    const userPromises = uniqueIds.map(async (id) => {
+      return await (
+        await users.sleep_log.find((_id) => _id.userId === id)
+      ).json();
+    });
+
+    const user = await Promise.all(userPromises);
+
+    return user;
+  },
 };
 
-module.exports = { Query };
+const Mutation = {
+  createUser: async (parents, args, context, info) => {
+    const input = args.input;
+    return {
+      user: {
+        id: "6565",
+        ...input,
+      },
+    };
+  },
+};
+
+module.exports = { Query, Mutation, Users };
