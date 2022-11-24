@@ -12,7 +12,7 @@ const typeDefs = gql`
     username: String
     age: Int
     # not sure with this
-    activity: [Body_State]
+    body_state: [Body_State]
     sleep_log: [Sleep_Log]
   }
   type Sleep_Log {

@@ -1,6 +1,6 @@
 const users = require("./data");
-const fetch = require("node-fetch");
-const API_URL = "http://localhost:3001/";
+// const fetch = require("node-fetch");
+// const API_URL = "http://localhost:3001/";
 
 const Query = {
   users: async (parents, args, context, info) => {
@@ -11,25 +11,17 @@ const Query = {
   },
 };
 const Users = {
-  sleep_log: async (parents, args, context, info) => {
+  sleep_log: (parents, args, context, info) => {
     const { id: userId } = parents;
-    const res = users.sleep_log.find((_id) => _id.userId === userId);
+    const sleep_log = users.sleep_log.find((_id) => _id.userId === userId);
 
-    const usrID = res.map((x) => {
-      return { user_id: x.userId };
-    });
+    return sleep_log;
+  },
+  body_state: (parents, args, context, info) => {
+    const { id: userId } = parents;
+    const body_state = users.body_state.find((_id) => _id.userId === userId);
 
-    const uniqueIds = [...new Set(usrID.map((id) => id.user_id))];
-
-    const userPromises = uniqueIds.map(async (id) => {
-      return await (
-        await users.sleep_log.find((_id) => _id.userId === id)
-      ).json();
-    });
-
-    const user = await Promise.all(userPromises);
-
-    return user;
+    return body_state;
   },
 };
 
